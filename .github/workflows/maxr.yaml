@@ -1,0 +1,54 @@
+name: Port Kernel Commits
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_kernel_repo:
+        description: 'Base kernel repository'
+        required: true
+      base_branch:
+        description: 'Base branch'
+        required: true
+      port_kernel_repo:
+        description: 'Port kernel repository'
+        required: true
+      port_branch:
+        description: 'Port branch'
+        required: true
+
+jobs:
+  port_kernel_commits:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout base kernel source
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ github.event.inputs.base_kernel_repo }}
+        ref: ${{ github.event.inputs.base_branch }}
+
+    - name: Checkout port kernel source
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ github.event.inputs.port_kernel_repo }}
+        ref: ${{ github.event.inputs.port_branch }}
+
+    - name: Fetch commits from port kernel source
+      run: git fetch --unshallow
+
+    - name: Apply port kernel commits to base kernel
+      run: |
+        git remote add port_repo $GITHUB_WORKSPACE
+        git fetch port_repo
+        for commit in $(git log --format="%H" HEAD..port_repo/${{ github.sha }}); do
+          git cherry-pick $commit || git cherry-pick --abort
+        done
+
+    - name: Zip modified kernel source
+      run: zip -r modified_kernel_source.zip .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: modified_kernel_source
+        path: modified_kernel_source.zip
