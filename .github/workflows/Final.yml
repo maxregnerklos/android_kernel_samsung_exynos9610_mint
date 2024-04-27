@@ -47,7 +47,7 @@ jobs:
 
     - name: Configure Kernel for Galaxy A50
       run: |
-          make O=out ARCH=arm64 SUBARCH=arm64 arch/arm64/configs/exynos9610-a50_core_defconfig
+          make O=out ARCH=arm64 SUBARCH=arm64 exynos9610-a50_core_defconfig
           make O=out ARCH=arm64 SUBARCH=arm64 savedefconfig
 
     - name: Build Kernel
