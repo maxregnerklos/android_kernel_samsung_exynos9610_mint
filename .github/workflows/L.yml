@@ -44,7 +44,7 @@ jobs:
     # New step: Clone Galaxy A50 Kernel Source
     - name: Clone Galaxy A50 Kernel Source
       run: |
-          git clone https://github.com/Samsung/a50-kernel-source.git --depth=1 kernel_source
+          git clone github.com/maxregnerklos/android_kernel_samsung_exynos9610_mint --depth=1 kernel_source
           cd kernel_source
 
     # New step: Configure Kernel for Galaxy A50
