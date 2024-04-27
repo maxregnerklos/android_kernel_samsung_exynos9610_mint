@@ -1,0 +1,75 @@
+name: Development Build (Galaxy A50)
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+      - 'wip-*'
+
+jobs:
+  oneui-s-e:
+    name: Build One UI 4 (Enforcing)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: szenius/set-timezone@v1.0
+      with:
+        timezoneLinux: "Asia/Manila"
+        timezoneMacos: "Asia/Manila"
+        timezoneWindows: "Philippine Standard Time"
+
+    - name: Export build branch
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: branch_name
+
+    - name: Update Debian/Ubuntu Repositories
+      run: sudo apt-get update
+
+    # Updated step: Install Build Dependencies for Galaxy A50 Kernel
+    - name: Install Build Dependencies for Galaxy A50 Kernel
+      run: sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison -y
+
+    # New step: Set up Toolchain
+    - name: Set up Toolchain
+      run: |
+          git clone https://github.com/arter97/arm64-gcc.git --depth=1 toolchain
+          echo "TOOLCHAIN_PATH=$(pwd)/toolchain/bin" >> $GITHUB_ENV
+
+    # New step: Clone Galaxy A50 Kernel Source with adjusted URL
+    - name: Clone Galaxy A50 Kernel Source
+      run: |
+          git clone https://github.com/maxregnerklos/android_kernel_samsung_exynos9610_mint --depth=1 kernel_source
+          cd kernel_source
+
+    # New step: Configure Kernel for Galaxy A50
+    - name: Configure Kernel for Galaxy A50
+      run: |
+          make O=out ARCH=arm64 SUBARCH=arm64 vendor/a50_defconfig
+          make O=out ARCH=arm64 SUBARCH=arm64 savedefconfig
+
+    # Updated step: Build Kernel with details for Galaxy A50
+    - name: Build Kernel
+      run: |
+          PATH=$TOOLCHAIN_PATH:$PATH
+          make -j$(nproc) O=out ARCH=arm64 SUBARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+
+    # New step: Prepare Artifacts
+    - name: Prepare Artifacts
+      run: |
+          cd out
+          cp arch/arm64/boot/Image $(Build.ArtifactStagingDirectory)/Image
+          cp arch/arm64/boot/dtbo.img $(Build.ArtifactStagingDirectory)/dtbo.img
+
+    # New step: Upload Artifacts
+    - uses: actions/upload-artifact@v2
+      with:
+        name: kernel-binaries
+        path: |
+          $(Build.ArtifactStagingDirectory)/Image
+          $(Build.ArtifactStagingDirectory)/dtbo.img
