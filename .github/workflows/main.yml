@@ -86,6 +86,8 @@ jobs:
     - name: Build Mint kernel
       run: |
           set -eo pipefail
+          chmod 755 scripts/*
+          chmod 755 build.sh
           echo "  I: Building Mint kernel ${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}"
           ./build.sh --magisk --automated --device a50 --variant oneui --android 12 --permissive
 
