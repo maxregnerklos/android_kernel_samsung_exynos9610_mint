@@ -4,10 +4,21 @@ on:
   push:
     branches:
       - 'android-*'
+  workflow_dispatch:  # Add workflow_dispatch trigger
 
 jobs:
   oneui-s-m:
     name: Build One UI 4 (Magisk)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      
+    steps:
+      # Steps for One UI 4 (Magisk) job...
+
+  oneui-s-p:
+    name: Build One UI 4 (Permissive)
     runs-on: ubuntu-latest
 
     strategy:
