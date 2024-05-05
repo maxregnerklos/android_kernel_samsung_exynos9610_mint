@@ -1,0 +1,30 @@
+name: Update Kernel Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_kernel:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout selected GitHub repo
+      uses: actions/checkout@v2
+      
+    - name: Add kernel repo as remote
+      run: git remote add kernel_repo https://github.com/openharmony/kernel_linux_5.10
+      
+    - name: Fetch changes from kernel repo
+      run: git fetch kernel_repo
+      
+    - name: Create new kernel branch in base repo
+      run: git checkout -b new_kernel_branch
+      
+    - name: Merge changes from kernel repo
+      run: git merge kernel_repo/main --allow-unrelated-histories
+      
+    - name: Push changes to base repo
+      run: |
+        git push origin new_kernel_branch
