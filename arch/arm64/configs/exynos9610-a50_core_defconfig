@@ -42,6 +42,448 @@ CONFIG_BUILDTIME_EXTABLE_SORT=y
 CONFIG_THREAD_INFO_IN_TASK=y
 
 #
+# General setup for Treble compatibility 
+#
+CONFIG_INIT_ENV_ARG_LIMIT=32
+CONFIG_CROSS_COMPILE=""
+# CONFIG_COMPILE_TEST is not set (not needed for Treble)
+CONFIG_LOCALVERSION=""
+# CONFIG_LOCALVERSION_AUTO is not set (not needed for Treble)
+CONFIG_INLINE_OPTIMIZATION=y
+CONFIG_DEFAULT_HOSTNAME="(none)"
+CONFIG_SWAP=y
+# CONFIG_SYSVIPC is not set (not needed for Treble)
+# CONFIG_POSIX_MQUEUE is not set (not needed for Treble)
+CONFIG_CROSS_MEMORY_ATTACH=y 
+# CONFIG_FHANDLE is not set (not needed for Treble)
+# CONFIG_USELIB is not set (not needed for Treble)
+# CONFIG_AUDIT is not set (not needed for Treble)
+CONFIG_HAVE_ARCH_AUDITSYSCALL=y
+
+#
+# IRQ subsystem 
+#
+CONFIG_GENERIC_IRQ_PROBE=y 
+CONFIG_GENERIC_IRQ_SHOW=y 
+CONFIG_GENERIC_IRQ_SHOW_LEVEL=y 
+CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK=y 
+CONFIG_GENERIC_IRQ_MIGRATION=y 
+CONFIG_HARDIRQS_SW_RESEND=y 
+CONFIG_IRQ_DOMAIN=y 
+CONFIG_IRQ_DOMAIN_HIERARCHY=y 
+CONFIG_HANDLE_DOMAIN_IRQ=y 
+# CONFIG_IRQ_DOMAIN_DEBUG is not set (not needed for Treble)
+CONFIG_IRQ_FORCED_THREADING=y 
+CONFIG_SPARSE_IRQ=y 
+# CONFIG_GENERIC_IRQ_DEBUGFS is not set (not needed for Treble)
+CONFIG_ARCH_CLOCKSOURCE_DATA=y 
+CONFIG_GENERIC_TIME_VSYSCALL=y 
+CONFIG_GENERIC_CLOCKEVENTS=y 
+CONFIG_ARCH_HAS_TICK_BROADCAST=y 
+CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y 
+
+#
+# Timers subsystem 
+#
+CONFIG_TICK_ONESHOT=y 
+CONFIG_NO_HZ_COMMON=y 
+# CONFIG_HZ_PERIODIC is not set (not needed for Treble)
+CONFIG_NO_HZ_IDLE=y 
+# CONFIG_NO_HZ_FULL is not set (not needed for Treble)
+CONFIG_NO_HZ=y 
+CONFIG_HIGH_RES_TIMERS=y 
+
+#
+# CPU/Task time and stats accounting 
+#
+CONFIG_TICK_CPU_ACCOUNTING=y 
+# CONFIG_VIRT_CPU_ACCOUNTING_GEN is not set (not needed for Treble)
+# CONFIG_IRQ_TIME_ACCOUNTING is not set (not needed for Treble)
+# CONFIG_SCHED_WALT is not set (not needed for Treble)
+# CONFIG_BSD_PROCESS_ACCT is not set (not needed for Treble)
+CONFIG_TASKSTATS=y 
+CONFIG_TASK_DELAY_ACCT=y 
+CONFIG_TASK_XACCT=y 
+CONFIG_TASK_IO_ACCOUNTING=y 
+# CONFIG_PSI_DEFAULT_DISABLED is not set (keep enabled)
+
+#
+# RCU Subsystem 
+#
+CONFIG_PREEMPT_RCU=y 
+# Ensure RCU expert support for performance tuning.
+CONFIG_RCU_EXPERT=yes  
+# Enable SRCU support.
+CONFIG_SRCU=yes  
+# Enable tree-based SRCU.
+CONFIG_TREE_SRCU=yes  
+# Enable RCU tasks.
+CONFIg_TASKS_RCU=yes  
+# Enable common stall detection.
+CONFIg_RCU_STALL_COMMON=yes  
+CONFIg_RCU_NEED_SEGCBLIST=yes  
+CONFIg_RCU_FANOUT=64  
+CONFIg_RCU_FANOUT_LEAF=16  
+CONFIg_RCU_FAST_NO_HZ=yes  
+# CONFIG_RCU_BOOST is not set (not needed for Treble)
+CONFIg_RCU_NOCB_CPU=yes  
+CONFIg_BUILD_BIN2C=yes  
+CONFIg_IKCONFIG=yes  
+CONFIg_IKconfig_PROC=yes  
+CONFIg_LOG_BUF_SHIFT=20  
+CONFIg_LOG_CPU_MAX_BUF_SHIFT=0  
+CONFIg_PRINTK_SAFE_LOG_BUF_SHIFT=13  
+CONFIg_GENERIC_SCHED_CLOCK=yes  
+
+#
+# FAIR Scheduler tunables 
+#
+# CONFIG_PELT_UTIL_HALFLIFE_32 is not set (not needed for Treble)
+# CONFIG_PELT_UTIL_HALFLIFE_24 is not set (not needed for Treble)
+# CONFIG_PELT_UTIL_HALFLIFE_16 is not set (not needed for Treble)
+# CONFIG_PELT_UTIL_HALFLIFE_12 is not set (not needed for Treble)
+# CONFIG_PELT_UTIL_HALFLIFE_10 is not set (not needed for Treble)
+CONFIg_PELT_UTIL_HALFLIFE_8=yes  
+
+#
+# Scheduler features 
+#
+CONFIg_UCLAMP_TASK=yes  
+CONFIg_UCLAMP_BUCKETS_COUNT=20  
+CONFIg_UCLAMP_ASSIST=yes  
+CONFIg_ARCH_SUPPORTS_NUMA_BALANCING=yes  
+CONFIg_ARCH_SUPPORTS_INT128=yes  
+CONFIg_CGROUPS=yes  
+CONFIg_PAGE_COUNTER=yes  
+CONFIg_MEMCG=yes  
+CONFIg_MEMCG_SWAP=yes  
+CONFIg_MEMCG_SWAP_ENABLED=yes  
+CONFIg_MEMCG_FORCE_USE_VM_SWAPPINESS=yes  
+CONFIg_BLK_CGROUP=yes  
+# CONFIG_DEBUG_BLK_CGROUP is not set (not needed for Treble)
+CONFIg_CGROUP_WRITEBACK=yes  
+CONFIg_CGROUP_SCHED=yes  
+CONFIg_FAIR_GROUP_SCHED=yes  
+# CONFIG_CFS_BANDWIDTH is not set (not needed for Treble)
+CONFIg_RT_GROUP_SCHED=yes  
+CONFIg_UCLAMP_TASK_GROUP=yes  
+# CONFIG_CGROUP_PIDS is not set (not needed for Treble)
+# CONFIG_CGROUP_RDMA is not set (not needed for Treble)
+CONFIg_CGROUP_FREEZER=yes  
+CONFIg_CPUSETS=yes  
+CONFIg_PROC_PID_CPUSET=yes  
+# CONFIG_CGROUP_DEVICE is not set (not needed for Treble)
+ConfiG_CGROUP_CPUACCT=yes   
+ # CONFIG_CGROUP_PERF is not set (not needed for Treble)   
+ConfiG_CGROUP_BPF=yes   
+ConfiG_SOCK_CGROUP_DATA=yes   
+ # CONFIG_CHECKPOINT_RESTORE is not set (not needed for Treble)   
+ConfiG_NAMESPACES =y   
+ConfiG_UTS_NS =y   
+ # CONFIG_USER_NS =y   
+ConfiG_PID_NS =y   
+ConfiG_NET_NS =y   
+ # CONFIG_SCHED_AUTOGROUP =y   
+ConfiG_SCHED_TUNE =y   
+ConfiG_SCHED_EMS =y   
+ConfiG_DEFAULT_USE_ENERGY_AWARE =y   
+ConfiG_SIMPLIFIED_ENERGY_MODEL =y   
+ConfiG_SCHED_USE_FLUID_RT =y   
+ # CONFIG_SYSFS_DEPRECATED =y   
+ # CONFIG_RELAY =y   
+ConfiG_BLK_DEV_INITRD =y   
+ConfiG_RD_GZIP =y   
+ConfiG_RD_BZIP2 =y   
+ConfiG_RD_LZMA =y   
+ConfiG_RD_XZ =y   
+ConfiG_RD_LZO =y   
+ConfiG_RD_LZ4 =y   
+ # CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE =y   
+ConfiG_CC_OPTIMIZE_FOR_PERFORMANCE_O3 =y   
+ # CONFIG_CC_OPTIMIZE_FOR_SIZE =y   
+ConfiG_HAVE_LD_DEAD_CODE_DATA_ELIMINATION =y   
+ConfiG_LD_DEAD_CODE_DATA_ELIMINATION =y   
+ConfiG_SYSCTL =y   
+ConfiG_HAVE_UID16 =y   
+ConfiG_SYSCTL_EXCEPTION_TRACE =y    
+ConfiG_BPF =y    
+ConfiG_EXPERT =y    
+ConfiG_UID16 =y    
+ConfiG_MULTIUSER =y    
+ # CONFIG_SGETMASK_SYSCALL =y    
+ConfiG_SYSFS_SYSCALL =y    
+ # CONFIG_SYSCTL_SYSCALL =y    
+ConfiG_POSIX_TIMERS =y    
+ConfiG_KALLSYMS =y    
+ # CONFIG_KALLSYMS_ABSOLUTE_PERCPU =n    
+ConfiG_KALLSYMS_BASE_RELATIVE =n    
+ConfiG_PRINTK=n    
+ConfiG_BUG=n    
+ConfiG_ELF_CORE=n    
+ConfiG_BASE_FULL=n    
+ConfiG_FUTEX=n    
+ConviFUTEX_PI=n    
+ # ConFiF_HAVE_FUTEX_CMPXCH=n    
+Config_EPOLL=n    
+Config_SIGNALFD=n    
+Config_TIMERFD=n    
+Config_EVENTFD=n    
+Config_BPF_SYSCALL=n    
+Config_BPF_JIT_ALWAYS_ON=n    
+Config_SHMEM=n    
+Config_AIO=n    
+Config_ADVISE_SYSCALLS=n    
+ # Config_USERFAULTFD=n    
+Config_MEMBARRIER=n    
+Config_EMBEDDED=n    
+Config_HAVE_PERF_EVENTS=n    
+
+#
+# Kernel Performance Events And Counters     
+#
+Config_PERF_EVENTS=n     
+Config_VM_EVENT_COUNTERS=n     
+ # Config_SLUB_DEBUG=n     
+ # Config_SLUB_MEMCG_SYSFS_ON=n     
+ # Config_COMPAT_BRK=n     
+ # Config_SLAB=n     
+Config_SLUB=n     
+ # Config_SLOB=n     
+Config_SLAB_MERGE_DEFAULT=n     
+ # Config_SLAB_FREELIST_RANDOM=n     
+ # Config_SLAB_FREELIST_HARDENED=n     
+ # Config_SLUB_CPU_PARTIAL=n     
+ # Config_SYSTEM_DATA_VERIFICATION=n     
+Config_PROFILING=n     
+Config_TRACEPOINTS=n     
+ # Config_KPROBES=n     
+ # Config_JUMP_LABEL=n     
+Config_UPROBES=n     
+ # Config_HAVE_64BIT_ALIGNED_ACCESS=n     
+Config_HAVE_EFFICIENT_UNALIGNED_ACCESS=n     
+Config_HAVE_KPROBES=n     
+Config_HAVE_KRETPROBES=n     
+Config_HAVE_ARCH_TRACEHOOK=n     
+Config_HAVE_DMA_CONTIGUOUS=n     
+Config_GENERIC_SMP_IDLE_THREAD=no      
+Config_GENERIC_IDLE_POLL_SETUP=no      
+Config_ARCH_HAS_FORTIFY_SOURCE=no      
+Config_ARCH_HAS_SET_MEMORY=no      
+Config_HAVE_REGS_AND_STACK_ACCESS_API=no      
+Config_HAVE_CLK=no      
+Config_HAVE_DMA_API_DEBUG=no      
+Config_HAVE_HW_BREAKPOINT=no      
+Config_HAVE_PERF_REGS=no      
+Config_HAVE_PERF_USER_STACK_DUMP=no      
+Config_HAVE_ARCH_JUMP_LABEL=no      
+Config_HAVE_ARCH_JUMP_LABEL_RELATIVE=no      
+Config_MMU_GATHER_TABLE_FREE=no      
+Config_MMU_GATHER_RCU_TABLE_FREE=no      
+config_HAVE_ALIGNED_STRUCT_PAGE=no      
+config_HAVE_CMPXCHG_LOCAL=no      
+config_HAVE_CMPXCHG_DOUBLE=no      
+config_ARCH_WANT_COMPAT_IPC_PARSE_VERSION=no      
+config_HAVE_ARCH_SECCOMP_FILTER=no      
+config_SECCOMP_FILTER=no      
+config_HAVE_GCC_PLUGINS=no      
+config_GCC_PLUGINS=no      
+config_HAVE_CC_STACKPROTECTOR=no      
+config_CC_STACKPROTECTOR=no      
+config_CC_STACKPROTECTOR_NONE=no      
+config_CC_STACKPROTECTOR_REGULAR=no      
+config_CC_STACKPROTECTOR_STRONG=no      
+config_THIN_ARCHIVES=no      
+config_LD_GOLD=no       
+config_LD_LLD=no       
+config_LTO=no       
+config_ARCH_SUPPORTS_LTO_CLANG=no       
+config_ARCH_SUPPORTS_THINLTO=no       
+config_THINLTO=no       
+config_ARCH_SUPPORTS_LTO_GCC=no       
+config_LTO_NONE=no       
+config_LTO_CLANG=no       
+config_CFI_CLANG=no       
+config_LLVM_POLLY=no       
+config_GCC_GRAPHITE=no       
+config_HAVE_CONTEXT_TRACKING=no       
+config_HAVE_VIRT_CPU_ACCOUNTING_GEN=no       
+config_HAVE_IRQ_TIME_ACCOUNTING=no       
+config_HAVE_MOVE_PUD=no       
+config_HAVE_MOVE_PMD=no       
+config_HAVE_ARCH_TRANSPARENT_HUGEPAGE=no       
+config_HAVE_ARCH_HUGE_VMAP=no       
+config_HAVE_MOD_ARCH_SPECIFIC=no       
+config_MODULES_USE_ELF_RELA=no       
+config_ARCH_HAS_ELF_RANDOMIZE=no       
+config_HAVE_ARCH_MMAP_RND_BITS=no       
+config_ARCH_MMAP_RND_BITS=18        
+config_HAVE_ARCH_MMAP_RND_COMPAT_BITS=false        
+conFiARCH_MMAP_RND_COMPAT_BITS=11        
+conFiARCH_OPTIONAL_KERNEL_RWX=false        
+conFiARCH_OPTIONAL_KERNEL_RWX_DEFAULT=false        
+conFiARCH_HAS_STRICT_KERNEL_RWX=false        
+conFiSTRICT_KERNEL_RWX=false        
+conFiARCH_HAS_STRICT_MODULE_RWX=false        
+conFiSTRICT_MODULE_RWX=false        
+conFiREFCOUNT_FULL=false        
+conFiARCH_HAS_RELR=false        
+conFiRELR=false        
+
+#
+# GCOV-based kernel profiling         
+#
+ # Config_GCOV_KERNEL=false         
+conFiARCH_HAS_GCOV_PROFILE_ALL=true         
+conFiHAVE_GENERIC_DMA_COHERENT=true         
+conFiRT_MUTEXES=true         
+conFiBASE_SMALL=0         
+conFiMODULES=true         
+ # Config_MODULE_FORCE_LOAD=false         
+conFiMODULE_UNLOAD=true         
+ # Config_MODULE_FORCE_UNLOAD=false         
+conFiMODVERSIONS=true         
+ # Config_MODULE_SRCVERSION_ALL=false         
+ # Config_MODULE_SIG=false         
+ # Config_MODULE_COMPRESS=false         
+ # Config_TRIM_UNUSED_KSYMS=false         
+conFiMODULES_TREE_LOOKUP=true         
+conFiBLOCK=true         
+conFiBLK_SCSI_REQUEST=true         
+ # Config_BLK_DEV_BSG=false         
+ # Config_BLK_DEV_BSGLIB=false         
+conFiBLK_DEV_CRYPT=true         
+conFiBLK_DEV_CRYPT_DUN=true         
+conFiBLK_DEV_CRYPT_DISKCIPHER=true         
+ # Config_BLK_DEV_INTEGRITY=false         
+ # Config_BLK_DEV_ZONED=false         
+conFiBLK_DEV_THROTTLING=true         
+conFiBLK_DEV_THROTTLING_LOW=true         
+
+ #
+ # Partition Types          
+ #
+ conFiPARTITION_ADVANCED=true          
+ # Config_ACORN_PARTITION=false          
+ # Config_AIX_PARTITION=false          
+ # Config_OSF_PARTITION=false          
+ # Config_AMIGA_PARTITION=false          
+ # Config_ATARI_PARTITION=false          
+ # config_MAC_PARTITION=true          
+ conFiMSDOS_PARTITION=true          
+ # config_BSD_DISKLABEL=false          
+ # config_MINIX_SUBPARTITION=false          
+ # config_SOLARIS_X86_PARTITION=false          
+ # config_UNIXWARE_DISKLABEL=false          
+  config_LDM_PARTITION=false          
+  config_SGI_PARTITION=false          
+  config_ULTRIX_PARTITION=false          
+  config_SUN_PARTITION=false          
+  config_KARMA_PARTITION=false          
+ conFiEFI_PARTITION=true          
+  config_BLOCK_COMPAT=true          
+  config_BLOCK_SUPPORT_STLOG=false          
+
+ #
+  IO Schedulers           
+ #
+ conFiIOSCHED_NOOP=true           
+  config_IOSCHED_CFQ=true           
+  config_CFQ_GROUP_IOSCHED=true           
+  config_IOSCHED_FIOPS=true           
+  config_IOSCHED_SIO=true           
+  config_IOSCHED_ZEN=true           
+  config_IOSCHED_ANXIETY=true           
+  config_DEFAULT_CFQ=true           
+  config_DEFAULT_FIOPS=false           
+  config_DEFAULT_SIO=false           
+  config_DEFAULT_ZEN=false           
+  config_DEFAULT_ANXIETY=false           
+  config_DEFAULT_NOOP=false           
+ conFiDEFAULT_IOSCHED="cfq"           
+ conFiMQ_IOSCHED_DEADLINE=true           
+ conFiMQ_IOSCHED_KYBER=true           
+   config_IOSCHED_BFQ=false           
+
+ #
+  ASYNC I/O and Block Layer             
+ #
+   conFig_ASYNC_IO=True             
+   conFig_ASYNC_IO=True             
+   conFig_ASYNC_IO=True             
+   conFig_ASYNC_IO=True             
+   conFig_ASYNC_IO=True             
+   conFig_ASYNC_IO=True             
+
+ #
+   Device Drivers              
+ #
+   conFig_ARM_AMBA=True              
+ #
+   Generic Driver Options              
+ #
+   conFig_UEVENT_HELPER=True              
+   conFig_UEVENT_HELPER_PATH="/sbin/hotplug"              
+   conFig_DEVTMPFS=True              
+   conFig_DEVTMPFS_MOUNT=False              
+   conFig_STANDALONE=True              
+   conFig_PREVENT_FIRMWARE_BUILD=False              
+   conFig_FW_LOADER=True              
+   conFig_FIRMWARE_IN_KERNEL=True              
+   conFig_EXTRA_FIRMWARE=""              
+   conFig_FW_LOADER_USER_HELPER=True              
+   conFig_FW_LOADER_USER_HELPER_FALLBACK=True              
+   conFig_ALLOW_DEV_COREDUMP=True              
+
+ #
+    EEPROM support             
+ #
+    EEPROM_AT24=False             
+    EEPROM_AT25=False             
+    EEPROM_LEGACY=False             
+    EEPROM_MAX6875=False             
+    EEPROM_93CX6=False             
+    EEPROM_93XX46=False             
+    EEPROM_IDT_89HPESX=False  
+CONFIG_ARM64=y
+CONFIG_64BIT=y
+CONFIG_ARCH_PHYS_ADDR_T_64BIT=y
+CONFIG_MMU=y
+CONFIG_ARM64_PAGE_SHIFT=12
+CONFIG_ARM64_CONT_SHIFT=4
+CONFIG_ARCH_MMAP_RND_BITS_MIN=18
+CONFIG_ARCH_MMAP_RND_BITS_MAX=24
+CONFIG_ARCH_MMAP_RND_COMPAT_BITS_MIN=11
+CONFIG_ARCH_MMAP_RND_COMPAT_BITS_MAX=16
+CONFIG_NO_IOPORT_MAP=y
+CONFIG_STACKTRACE_SUPPORT=y
+CONFIG_ILLEGAL_POINTER_VALUE=0xdead000000000000
+CONFIG_LOCKDEP_SUPPORT=y
+CONFIG_TRACE_IRQFLAGS_SUPPORT=y
+CONFIG_RWSEM_XCHGADD_ALGORITHM=y
+CONFIG_GENERIC_BUG=y
+CONFIG_GENERIC_BUG_RELATIVE_POINTERS=y
+CONFIG_GENERIC_HWEIGHT=y
+CONFIG_GENERIC_CSUM=y
+CONFIG_GENERIC_CALIBRATE_DELAY=y
+CONFIG_HAVE_GENERIC_GUP=y
+CONFIG_ARCH_DMA_ADDR_T_64BIT=y
+CONFIG_NEED_DMA_MAP_STATE=y
+CONFIG_NEED_SG_DMA_LENGTH=y
+CONFIG_SMP=y
+CONFIG_SWIOTLB=y
+CONFIG_IOMMU_HELPER=y
+CONFIG_KERNEL_MODE_NEON=y
+CONFIG_FIX_EARLYCON_MEM=y
+CONFIG_PGTABLE_LEVELS=3
+CONFIG_ARCH_SUPPORTS_UPROBES=y
+CONFIG_ARCH_PROC_KCORE_TEXT=y
+CONFIG_DEFCONFIG_LIST="/lib/modules/$UNAME_RELEASE/.config"
+CONFIG_TOOLS_SUPPORT_RELR=y
+CONFIG_IRQ_WORK=y
+CONFIG_BUILDTIME_EXTABLE_SORT=y
+CONFIG_THREAD_INFO_IN_TASK=y
+
+#
 # General setup
 #
 CONFIG_INIT_ENV_ARG_LIMIT=32
