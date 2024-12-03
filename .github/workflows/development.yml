@@ -1,4 +1,4 @@
-name: Development Build (Galaxy A50)
+name: Upstream Kernel to 4.19
 
 on:
   push:
@@ -9,61 +9,51 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Build KSU'
-        required: false
+        description: 'Target kernel version'
+        default: '4.19'
+        required: true
 
 jobs:
-  oneui-4-p:
-    name: Build One UI 4 (Permissive)
+  upstream-kernel:
+    name: Upstream Kernel to 4.19
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-
-    - uses: szenius/set-timezone@v1.0
       with:
-        timezoneLinux: "Asia/Manila"
-        timezoneMacos: "Asia/Manila"
-        timezoneWindows: "Philippine Standard Time"
+        fetch-depth: 0
 
-    - name: Export build branch
-      id: branch_name
-      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
-
-    - name: Update Debian/Ubuntu Repositories
-      run: sudo apt-get update
-
-    - name: Install Dependencies
-      run: sudo apt-get install -y bzip2 lib32stdc++6 libc6-dev-i386 libncurses5 jq
-
-    - name: Build Mint Kernel (Permissive)
+    - name: Set up Git
       run: |
-        set -eo pipefail
-        echo "  I: Building Mint kernel ${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER}"
-        ./build.sh --magisk --automated --device a50 --variant oneui --android 12 --permissive
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
 
-    - name: Prepare Release Package
+    - name: Create new branch
       run: |
-        mkdir -p ./release
-        mv -f $(find ./ -iname MintBeta-*.zip) ./release/
+        git checkout -b upstream-4.19-${{ github.run_number }}
+        git push -u origin upstream-4.19-${{ github.run_number }}
 
-    - name: Save Kernel Config
-      run: cp .config ./release/kernel_config_a50_oneui-4-p.txt
+    - name: Fetch Linux 4.19 kernel
+      run: |
+        git remote add upstream https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git fetch upstream v4.19
 
-    - name: Upload Kernel Image
-      uses: actions/upload-artifact@v3
+    - name: Cherry-pick compatible changes
+      run: |
+        git cherry-pick -n upstream/v4.19
+        git status
+        git diff --name-only --diff-filter=U | xargs git checkout --theirs
+        git add .
+        git commit -m "Upstream to Linux 4.19 with compatible changes"
+
+    - name: Push changes
+      run: |
+        git push origin upstream-4.19-${{ github.run_number }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
       with:
-        name: One UI 4 Kernel Image (Permissive)
-        path: 'tools/make/boot.img'
-
-    - name: Upload Kernel Configs
-      uses: actions/upload-artifact@v3
-      with:
-        name: Kernel Configs
-        path: './release/kernel_config_a50_oneui-4-p.txt'
-
-    - name: Upload Release Package
-      uses: actions/upload-artifact@v3
-      with:
-        name: Release
-        path: './release'
+        title: "Upstream to Linux 4.19"
+        body: "This PR upstreams the kernel to version 4.19 with compatible changes."
+        branch: upstream-4.19-${{ github.run_number }}
+        base: ${{ github.ref }}
